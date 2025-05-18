@@ -1,0 +1,8 @@
+*.blend1
+~*
+*#auto_saved_files#
+*fp-info-cache
+*-backups
+_autosave*
+build*
+.vscode*
