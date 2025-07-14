@@ -1,9 +1,9 @@
 # EP5101 SinCos 11µA_pp and 1V_pp encoder/glass scale converter (WIP! - UNTESTED!)
-This interface board is designed to convert a encoder signal with 11µA peak-peak or 1V peak-peak signal to TTL with a [iC-Haus iC-NV](https://www.ichaus.de/product/ic-nv/) be used with a [Beckhoff EP5101](https://www.beckhoff.com/de-de/produkte/i-o/ethercat-box/epxxxx-industriegehaeuse/ep5xxx-winkel-wegmessung/ep5101-0011.html?) for example in LinuxCNC.
+This interface board is designed to convert a encoder signal with $11µA_{PP}$ (peak-peak) or $1V_{PP}$ signal to TTL with a [iC-Haus iC-NV](https://www.ichaus.de/product/ic-nv/) be used with a [Beckhoff EP5101](https://www.beckhoff.com/de-de/produkte/i-o/ethercat-box/epxxxx-industriegehaeuse/ep5xxx-winkel-wegmessung/ep5101-0011.html?) for example in LinuxCNC.
 
 Assembly concept:
 ![assembly concept](pics/concept_DIN-rail/0_Beckhoff_EP5101_v5_1.png "Concept assembly")
-![assembly concept](pics\concept_DIN-rail\0_Gesamt_DinRail02_v1_1.png "Concept assembly")
+![assembly concept](pics/concept_DIN-rail/0_Gesamt_DinRail02_v1_1.png "Concept assembly")
 
 PCB:\
 comming soon...
@@ -15,8 +15,9 @@ comming soon...
 - 🔲 tested intensively with [LS403](docs/Heidenhain-LS-403-LS-403C.pdf) and [EP5101](https://www.beckhoff.com/de-de/produkte/i-o/ethercat-box/epxxxx-industriegehaeuse/ep5xxx-winkel-wegmessung/ep5101-0011.html?)
 
 
-## Powering and Connectors
+## Powering, connectors and signals
 The board needs no seperate supply voltage and is fully powered by the 5V supply of the EP5101. The green led of the RJ45 connector indicates a working 5V rail.
+Supported input signals are $11µA_{PP}$ (standard) and $1V_{PP}$. The output is a TTL signal. With component ```U2``` ([AM26LS31](https://www.ti.com/product/de-de/AM26LS31) - Differential Line Driver) placed a placed 
 
 
 ## Mounting adaptor
@@ -24,7 +25,7 @@ There is a DIN-rail mounting adaptor avaliable, which is used to mount a M23 mal
 
 
 ## Config switches
-Pretty much everything of the [iC-NV](https://www.ichaus.de/product/ic-nv/) is configurable through config switches or a potentiometer. \
+Pretty much everything of the [iC-NV](https://www.ichaus.de/product/ic-nv/) is configurable through config switches and a potentiometer. \
 A detailed list of all configurable options will be added as soon as the first PCB layout is finished. 
 
 
@@ -32,40 +33,47 @@ A detailed list of all configurable options will be added as soon as the first P
 The shielded RJ45 port has the following pinout (pin-matched with the Heidenhain spec for their 9 pin connectors):
 
 | pin RJ45 | usage/signal |
-| :---  | :---  |
-| 1     | I_1+  |
-| 2     | I_1-  |
-| 3     | 5 V   |
-| 4     | 0 V   |
-| 5     | I_2+  |
-| 6     | I_2-  |
-| 7     | I_0+  |
-| 8     | I_0-  |
+| :---  | :---      |
+| 1     | In_SIN+   |
+| 2     | In_SIN-   |
+| 3     | 5 V       |
+| 4     | 0 V       |
+| 5     | In_COS+   |
+| 6     | In_COS-   |
+| 7     | In_ZERO+  |
+| 8     | In_ZERO-  |
 
 The 8 pin male-header J2 has the following pinout:
 
 ```
-                    odd pins  |  even pins
-╔═══╦════╗         -----------|------------
-║ 1 ║  2 ║════════      I_1+  |  I_1-
-╠═══╬════╣                    |
-║ 3 ║  4 ║════════       5 V  |  GND
-╠═══╬════╣                    |
-║ 5 ║  6 ║════════      I_2+  |  I_2-
-╠═══╬════╣                    |
-║ 7 ║  8 ║════════      I_0+  |  I_0-
-╠═══╬════╣                    |
-║ 9 ║ 10 ║════════    shield  |  shield
-╚═══╩════╝
+                        odd pins  |  even pins
+╔════╦════╗             ----------|------------
+║  1 ║  2 ║════════      In_SIN+  |  In_SIN-
+╠════╬════╣                       |
+║  3 ║  4 ║════════          5 V  |  GND
+╠════╬════╣                       |
+║  5 ║  6 ║════════      In_COS+  |  In_COS-
+╠════╬════╣                       |
+║  7 ║  8 ║════════     In_ZERO+  |  In_ZERO-
+╠════╬════╣                       |
+║  9 ║ 10 ║════════       shield  |  shield
+╚════╩════╝
 ```
 
+## Analog Frontend / Signal Conditioning Stage
+After reaching out to iC-Haus' support for some details about the needed analog frontend for $11 µA_{PP}$ sensors, i got some details on how to implement it. A really nice solution which works with $1 V_{PP}$ as well as $11 µA_{PP}$ signals was documented in the [iC-NQC datasheet (page 28)](docs/iC-NQC_datasheet_E2en.pdf). This exact signal conditioning stage was implemented for all three stages. By shorting each ```CHx_JP1``` you can connect the $120 \Omega$ termination resistor to the input side of the input stage and by that set the device to its $1 V_{PP}$ operating mode.
 
-## Limitations
-In our Maho 400E with the original Philips 432/10 controller, the encoder converter card is labeled "Maho 27.69 658" on the top and no label on the bottom. It seems to be a standard Heidenhain part (Part#: 229 281 01). Example pictures are avaliable [here](https://www.cnc-shopping.com/en/philips-432-cnc-heidenhain-229-281-01-exe-platine-maho-27-69-658-3-axis-615dc0edd3849-p-5395.html). 
+<img src="docs/schematic_frontend_suggestion-3.jpg" width="500">
 
 
 ## Usage/Software
 This interface board is meant to be used in combination with the [Beckhoff EP5101 module](hhttps://www.beckhoff.com/de-de/produkte/i-o/ethercat-box/epxxxx-industriegehaeuse/ep5xxx-winkel-wegmessung/ep5101-0011.html?). The EL5021 is then used by the [LinuxCNC software](https://linuxcnc.org/) to read e.g. Heidenhain LS403 glass scales on a Maho MH400E.
+
+Also keep in mind that you need a sufficiently sized counter. For most retrofits a 16 bit wide counter will not cut it. 
+Quick example:
+```math 
+n_{min} = \log_2 \left(\frac{range~of~motion}{axis~resolution}\right) = \log_2 \left(\frac{400 mm}{1 \mu m}\right) = 18.61 bit \approx \textbf{19 bit > 16 bit}
+```
 
 
 ## Documentation

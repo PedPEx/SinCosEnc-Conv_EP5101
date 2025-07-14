@@ -527,11 +527,29 @@
           "label": "DNP",
           "name": "${DNP}",
           "show": true
+        },
+        {
+          "group_by": false,
+          "label": "#",
+          "name": "${ITEM_NUMBER}",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "LCSC Part",
+          "name": "LCSC Part",
+          "show": false
+        },
+        {
+          "group_by": false,
+          "label": "Description",
+          "name": "Description",
+          "show": false
         }
       ],
       "filter_string": "",
       "group_symbols": true,
-      "name": "Grouped By Value",
+      "name": "",
       "sort_asc": true,
       "sort_field": "Reference"
     },
@@ -578,6 +596,10 @@
     [
       "65c0920c-b33d-485e-a4e4-15145e9bcf4b",
       "Root"
+    ],
+    [
+      "3a1cba1a-78b8-4283-a679-1de86586ecf3",
+      "iC-NV"
     ]
   ],
   "text_variables": {}
