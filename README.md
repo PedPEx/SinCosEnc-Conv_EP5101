@@ -72,9 +72,20 @@ This interface board is meant to be used in combination with the [Beckhoff EP510
 Also keep in mind that you need a sufficiently sized counter. For most retrofits a 16 bit wide counter will not cut it. 
 Quick example:
 ```math 
-n_{min} = \log_2 \left(\frac{range~of~motion}{axis~resolution}\right) = \log_2 \left(\frac{400 mm}{1 \mu m}\right) = 18.61 bit \approx \textbf{19 bit > 16 bit}
+n_{min} = \log_2 \left(\frac{range\_of\_motion}{axis\_resolution}\right) = \log_2 \left(\frac{400 mm}{1 \mu m}\right) = 18.61 bit \approx \textbf{19 bit > 16 bit}
 ```
-
+In addition to the resolution you you also need to check the cutoff frequency (maximum input frequency) of the encoder input. The ```EP5101-0011``` for example is limited to $4.0 MHz$ (that's really high, especally in fourfold evaluation mode). For a resolution of $1 µm$ the maximum axis speed is:
+```math
+v_{max\_EC-Input} = \frac{resolution\_of\_sensor}{interpolation\_factor \cdot quadratur\_encoder\_input} \cdot cutoff\_frequency = \\~\\
+= {overall\_resolution \cdot cutoff\_frequency} = \\~\\
+= \frac{20µm}{5 \cdot 4} \cdot 4.0 MHz = 1µm \cdot 4.0 MHz = 4.0 \frac{m}{s}
+```
+The same calculation needs to be done with the input side of the IC ```iC-NV```. The cutoff frequency depends on the used gain. For a $gain = 4$ the manual states a $fin_{MAX}=200 kHz$ (for RCLK = VCC).
+```math
+v_{max\_IC-Input} = resolution\_of\_sensor \cdot cutoff\_frequency_{IC} = \\~\\
+= 20µm \cdot 200 kHz = 4.0 \frac{m}{s}
+```
+The lower value of the two calculated velocities, $v_{max\_EC-Input} = 4.0 \frac{m}{s}$ and $v_{max\_IC-Input} = 4.0 \frac{m}{s}$, is $4.0 \frac{m}{s}$. This represents the maximum permissible speed for the corresponding axis and must not be exceeded!
 
 ## Documentation
 All docs can be found in the [docs folder](docs/).
