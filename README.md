@@ -1,4 +1,4 @@
-# EP5101 SinCos 11µA_pp and 1V_pp encoder/glass scale converter (WIP! - UNTESTED!)
+# EP5101 SinCos $11µA_{PP}$ and $1V_{PP}$ encoder/glass scale to TTL (RS422 compliance) converter (WIP! - UNTESTED!)
 This interface board is designed to convert a encoder signal with $11µA_{PP}$ (peak-peak) or $1V_{PP}$ signal to TTL with a [iC-Haus iC-NV](https://www.ichaus.de/product/ic-nv/) be used with a [Beckhoff EP5101](https://www.beckhoff.com/de-de/produkte/i-o/ethercat-box/epxxxx-industriegehaeuse/ep5xxx-winkel-wegmessung/ep5101-0011.html?) for example in LinuxCNC.
 
 Assembly concept:
