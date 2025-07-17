@@ -2,15 +2,16 @@
 This interface board is designed to convert a encoder signal with $11µA_{PP}$ (peak-peak) or $1V_{PP}$ signal to TTL with a [iC-Haus iC-NV](https://www.ichaus.de/product/ic-nv/) be used with a [Beckhoff EP5101](https://www.beckhoff.com/de-de/produkte/i-o/ethercat-box/epxxxx-industriegehaeuse/ep5xxx-winkel-wegmessung/ep5101-0011.html?) for example in LinuxCNC.
 
 Assembly concept:
-![assembly concept](pics/concept_DIN-rail/0_Beckhoff_EP5101_v5_1.png "Concept assembly")
-![assembly concept](pics/concept_DIN-rail/0_Gesamt_DinRail02_v1_1.png "Concept assembly")
+![assembly concept](pics/concept_DIN-rail/0_Beckhoff_EP5101_v8_3.png "Concept assembly")
+![assembly concept](pics/concept_DIN-rail/0_Gesamt_DinRail02_v2_1.png "Concept assembly")
 
 PCB:\
-comming soon...
+![PCB render v0.9.3 front](pics/PCB_render/v093_2.png "PCB render v0.9.3 front")
+![PCB render v0.9.3 back](pics/PCB_render/v093_3.png "PCB render v0.9.3 back")
 
 
 ## ToDo
-- 🔲 finished prototype PCB (v0.?)
+- 🔲 finished prototype PCB (v0.9.3?)
 - 🔲 working conversion
 - 🔲 tested intensively with [LS403](docs/Heidenhain-LS-403-LS-403C.pdf) and [EP5101](https://www.beckhoff.com/de-de/produkte/i-o/ethercat-box/epxxxx-industriegehaeuse/ep5xxx-winkel-wegmessung/ep5101-0011.html?)
 
@@ -76,14 +77,11 @@ n_{min} = \log_2 \left(\frac{range\_of\_motion}{axis\_resolution}\right) = \log_
 ```
 In addition to the resolution you you also need to check the cutoff frequency (maximum input frequency) of the encoder input. The ```EP5101-0011``` for example is limited to $4.0 MHz$ (that's really high, especally in fourfold evaluation mode). For a resolution of $1 µm$ the maximum axis speed is:
 ```math
-v_{max\_EC-Input} = \frac{resolution\_of\_sensor}{interpolation\_factor \cdot quadratur\_encoder\_input} \cdot cutoff\_frequency = \\~\\
-= {overall\_resolution \cdot cutoff\_frequency} = \\~\\
-= \frac{20µm}{5 \cdot 4} \cdot 4.0 MHz = 1µm \cdot 4.0 MHz = 4.0 \frac{m}{s}
+v_{max\_EC-Input} = \frac{resolution\_of\_sensor}{interpolation\_factor \cdot quadratur\_encoder\_input} \cdot cutoff\_frequency = {overall\_resolution \cdot cutoff\_frequency} = \frac{20µm}{5 \cdot 4} \cdot 4.0 MHz = 1µm \cdot 4.0 MHz = 4.0 \frac{m}{s}
 ```
 The same calculation needs to be done with the input side of the IC ```iC-NV```. The cutoff frequency depends on the used gain. For a $gain = 4$ the manual states a $fin_{MAX}=200 kHz$ (for RCLK = VCC).
 ```math
-v_{max\_IC-Input} = resolution\_of\_sensor \cdot cutoff\_frequency_{IC} = \\~\\
-= 20µm \cdot 200 kHz = 4.0 \frac{m}{s}
+v_{max\_IC-Input} = resolution\_of\_sensor \cdot cutoff\_frequency_{IC} = 20µm \cdot 200 kHz = 4.0 \frac{m}{s}
 ```
 The lower value of the two calculated velocities, $v_{max\_EC-Input} = 4.0 \frac{m}{s}$ and $v_{max\_IC-Input} = 4.0 \frac{m}{s}$, is $4.0 \frac{m}{s}$. This represents the maximum permissible speed for the corresponding axis and must not be exceeded!
 

@@ -10099,7 +10099,7 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "d286e265-c0da-4473-b577-9ba3d9c54a61")
-		(property "Reference" "R2"
+		(property "Reference" "R1"
 			(at 149.86 181.6099 0)
 			(effects
 				(font
@@ -10153,7 +10153,7 @@
 		(instances
 			(project "SinCosEnc-Converter_EP5101-0011"
 				(path "/65c0920c-b33d-485e-a4e4-15145e9bcf4b"
-					(reference "R2")
+					(reference "R1")
 					(unit 1)
 				)
 			)
@@ -10234,7 +10234,7 @@
 		(on_board yes)
 		(dnp yes)
 		(uuid "d962fe33-c4b1-4c2a-98c2-ca23105432e2")
-		(property "Reference" "R4"
+		(property "Reference" "R2"
 			(at 141.986 156.464 0)
 			(effects
 				(font
@@ -10286,7 +10286,7 @@
 		(instances
 			(project "SinCosEnc-Converter_EP5101-0011"
 				(path "/65c0920c-b33d-485e-a4e4-15145e9bcf4b"
-					(reference "R4")
+					(reference "R2")
 					(unit 1)
 				)
 			)
