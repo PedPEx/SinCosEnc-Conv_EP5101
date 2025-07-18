@@ -11,7 +11,7 @@ PCB:\
 
 
 ## ToDo
-- 🔲 finished prototype PCB (v0.9.3?)
+- 🔲 finished prototype PCB (v0.9.5?)
 - 🔲 working conversion
 - 🔲 tested intensively with [LS403](docs/Heidenhain-LS-403-LS-403C.pdf) and [EP5101](https://www.beckhoff.com/de-de/produkte/i-o/ethercat-box/epxxxx-industriegehaeuse/ep5xxx-winkel-wegmessung/ep5101-0011.html?)
 
@@ -93,6 +93,8 @@ All docs can be found in the [docs folder](docs/).
 [Detailed schematics preview](https://kicanvas.org/?github=https%3A%2F%2Fgithub.com%2FPedPEx%2FSinCosEnc-Conv_EP5101) (KiCanvas)
 
 [Online BOM](https://htmlpreview.github.io/?https://raw.githubusercontent.com/PedPEx/SinCosEnc-Conv_EP5101/master/bom/webviewer-BOM.html)
+
+[PDF schematics (v0.9.5)](https://github.com/PedPEx/SinCosEnc-Conv_EP5101/blob/master/SinCosEnc-Converter_EP5101-0011_schematic_v0.9.5.pdf)
 
 
 ## *Note*
