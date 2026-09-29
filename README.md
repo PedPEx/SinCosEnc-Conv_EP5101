@@ -1,4 +1,20 @@
-# EP5101 SinCos $11µA_{PP}$ and $1V_{PP}$ encoder/glass scale to TTL (RS422 compliance) converter (WIP! - UNTESTED!)
+# EP5101 SinCos $11µA_{PP}$ and $1V_{PP}$ encoder/glass scale to TTL (RS422 compliance) converter (ARCHIVED)
+
+This repo is no longer maintained. There is no reason to interface $11µA_{PP}$ sensors with the help of this PCB and an EtherCAT-based incremental encoder input module - like an EL5101 or an EP5101. Due to the cost of one assembled converter PCB (~30€ total), it is a competitive alternative to the original iC-Haus EVAL board of the [iC-NV](https://www.ichaus.de/product/ic-nv/) and the Heidenhain EXEs, if used with other RS422 or TTL encoder inputs.
+
+If you are planning on using EtherCAT as your system bus, use the [documented process here on how to modify an EL5021 terminal](https://github.com/PedPEx/EL5021_multi-signal-mod) instead (which internally uses an iC-Haus IC similar to this project).
+
+In my [bachelor's thesis](https://pedpex.github.io/Maho400E-LinuxCNC/docs/bachelors_thesis.pdf) I updated the old 0.9.6/0.9.7 version of the PCB a little, so that it better tolerates EMI conditions. As I was not very happy with the improvements in v0.9.8, it was never officially pushed. After further inspection, starting from scratch would be the better decision in order to get better EMI ratings. Additionally, the shielding of the EP5101-0011 is floating, which is also not the desired state. Since the alternative is far cheaper, a 4-layer redesign is not worthwhile, and as the new board is no longer used, this project will no longer be maintained and will therefore be archived.
+
+PCB version v0.9.6 was fully working and successfully tested. Version v0.9.8 was never produced nor tested.
+This board is provided as is - unfinished and untested. Productive use is explicitly not recommended! Further rework is required. No support is offered for it. The project will be left as is.
+
+---
+
+<details>
+  <summary>Old README content</summary>
+  
+# EP5101 SinCos $11µA_{PP}$ and $1V_{PP}$ encoder/glass scale to TTL (RS422 compliance) converter (WIP!)
 This interface board is designed to convert a encoder signal with $11µA_{PP}$ (peak-peak) or $1V_{PP}$ signal to TTL with a [iC-Haus iC-NV](https://www.ichaus.de/product/ic-nv/) be used with a [Beckhoff EP5101](https://www.beckhoff.com/de-de/produkte/i-o/ethercat-box/epxxxx-industriegehaeuse/ep5xxx-winkel-wegmessung/ep5101-0011.html?) for example in LinuxCNC.
 
 Assembly concept (with old potentiometer and RJ45 jack):
@@ -14,8 +30,8 @@ PCB:\
 
 ## ToDo
 - ✅ finished prototype PCB (v0.9.6)
-- 🔲 working conversion
-- 🔲 tested intensively with [LS403](docs/Heidenhain-LS-403-LS-403C.pdf) and [EP5101](https://www.beckhoff.com/de-de/produkte/i-o/ethercat-box/epxxxx-industriegehaeuse/ep5xxx-winkel-wegmessung/ep5101-0011.html?)
+- ✅ working conversion
+- ✅ tested intensively with [LS403](docs/Heidenhain-LS-403-LS-403C.pdf) and [EP5101](https://www.beckhoff.com/de-de/produkte/i-o/ethercat-box/epxxxx-industriegehaeuse/ep5xxx-winkel-wegmessung/ep5101-0011.html?)
 
 
 ## Powering, connectors and signals
@@ -111,7 +127,7 @@ The same calculation needs to be done with the input side of the IC ```iC-NV```.
 ```math
 v_{max\_IC-Input} = resolution\_of\_sensor \cdot cutoff\_frequency_{IC} = 20µm \cdot 200 kHz = 4.0 \frac{m}{s}
 ```
-The lower value of the two calculated velocities, $v_{max\_EC-Input} = 1.0 \frac{m}{s}$ and $v_{max\_IC-Input} = 4.0 \frac{m}{s}$, is $1.0 \frac{m}{s}$. This represents the maximum permissible speed for the corresponding axis and must not be exceeded!
+The lower value of the two calculated velocities, $v_{max\_{EC-Input}} = 1.0 \frac{m}{s}$ and $v_{max\_IC-Input} = 4.0 \frac{m}{s}$, is $1.0 \frac{m}{s}$. This represents the maximum permissible speed for the corresponding axis and must not be exceeded!
 
 ## Documentation
 All docs can be found in the [docs folder](docs/).
@@ -127,3 +143,5 @@ All docs can be found in the [docs folder](docs/).
 
 ## *Note*
 The pictures were rendered with the help of Blender and the [pcb2blender](https://github.com/30350n/pcb2blender) plugin and the HTML BOM was created with [InteractiveHtmlBom](https://github.com/openscopeproject/InteractiveHtmlBom).
+
+</details>

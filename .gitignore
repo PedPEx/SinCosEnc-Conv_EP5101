@@ -6,3 +6,8 @@
 _autosave*
 build*
 .vscode*
+*.kicad_prl
+*.kicad_prl
+*-backups/
+fp-info-cache
+*.lck
